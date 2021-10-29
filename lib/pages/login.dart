@@ -239,7 +239,7 @@ class LoginPageState extends State<LoginPage> {
                             ),
                             InkWell(
                               child: Text(
-                                "Signup",
+                                "Signup.....",
                                 style: TextStyle(
                                   color: Color(0xffE17373),
                                   fontSize: 20,
