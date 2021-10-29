@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "42173394383",
+    "project_id": "graduationproject-780c2",
+    "storage_bucket": "graduationproject-780c2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42173394383:android:7b4ccac74e1518cc6076ba",
+        "android_client_info": {
+          "package_name": "com.example.Conneect_Firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42173394383-pnrtlo8g6ciou9vg7p6pcts4st2ccl2e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrTHqqRngpV6KdmjwAL5EJ6I4_vp1TAdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42173394383-pnrtlo8g6ciou9vg7p6pcts4st2ccl2e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42173394383:android:8bffe6cda93e22c56076ba",
+        "android_client_info": {
+          "package_name": "com.haidy.auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42173394383-pnrtlo8g6ciou9vg7p6pcts4st2ccl2e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrTHqqRngpV6KdmjwAL5EJ6I4_vp1TAdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42173394383-pnrtlo8g6ciou9vg7p6pcts4st2ccl2e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
