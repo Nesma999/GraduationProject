@@ -2,12 +2,12 @@ import 'package:Conneect_Firebase/Components/components.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'search/search.dart';
-import 'changePassword.dart';
-import 'call.dart';
-import 'posts.dart';
-import 'login/login.dart';
-import 'usersProfile/profile.dart';
+import '../search/search.dart';
+import '../changePassword/changePassword.dart';
+import '../chat/call.dart';
+import '../post/posts.dart';
+import '../login/login.dart';
+import '../usersProfile/profile.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override

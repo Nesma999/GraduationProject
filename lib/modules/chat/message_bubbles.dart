@@ -15,15 +15,11 @@ class messageBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Stack(
-
       children: [
-
         Row(
-
           mainAxisAlignment:
               isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: <Widget>[
-
             Container(
               decoration: BoxDecoration(
                 color: isMe ? Colors.grey[300] : Colors.red,
@@ -73,7 +69,6 @@ class messageBubble extends StatelessWidget {
               backgroundImage: NetworkImage(imageurl),
             )),
       ],
-      overflow: Overflow.visible,
     );
   }
 }

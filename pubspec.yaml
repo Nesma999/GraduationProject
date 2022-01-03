@@ -40,6 +40,9 @@ dependencies:
   path:
   email_auth: ^0.0.1+2
   font_awesome_flutter:
+  bloc: ^8.0.1
+  flutter_bloc: ^8.0.0
+
 
 
   # The following adds the Cupertino Icons font to your application.

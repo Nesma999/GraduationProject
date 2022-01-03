@@ -1,13 +1,10 @@
 import 'package:Conneect_Firebase/Components/components.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoder/geocoder.dart';
-
-import 'drawer.dart';
+import '../drawer/drawer.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -17,8 +14,6 @@ class Search extends StatefulWidget {
 class SearchState extends State<Search> {
   String title = "";
   Color g = Color.fromRGBO(105, 100, 100, 1);
-  var backG = Color.fromRGBO(229, 33, 33, 1);
-  var bar = Color.fromRGBO(255, 255, 255, 1);
   var userName = Color.fromRGBO(167, 120, 120, 1);
   var titlee = Color.fromRGBO(187, 166, 166, 1);
   bool isColor = false;
@@ -42,7 +37,7 @@ class SearchState extends State<Search> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black,size: 30),
+        iconTheme: IconThemeData(color: Colors.black, size: 30),
         elevation: 0.0,
       ),
       drawer: Drawer(
@@ -91,210 +86,98 @@ class SearchState extends State<Search> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Expanded(
-                        child: ElevatedButton(
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            backgroundColor: isColor ? Colors.red : w,
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 1, color: Colors.black12)),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              search1 = "A+";
-                              isColor = !isColor;
-                            });
-                          },
-                          child: Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text("A+",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w400,
-                                    color: isColor ? Colors.white : g,
-                                  ))),
-                        ),
+                      defaultPageSearch(
+                        text: 'A+',
+                        backgroundColor: isColor ? Colors.red : w,
+                        textColor: isColor ? Colors.white : g,
+                        onPressed: () {
+                          setState(() {
+                            search1 = "A+";
+                            isColor = !isColor;
+                          });
+                        },
                       ),
-                      Expanded(
-                        child: ElevatedButton(
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            backgroundColor: isColorA ? Colors.red : w,
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 1, color: Colors.black12)),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              search1 = "A-";
-                              isColorA = !isColorA;
-                            });
-                          },
-                          child: Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text("A-",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w400,
-                                    color: isColorA ? Colors.white : g,
-                                  ))),
-                        ),
+                      defaultPageSearch(
+                        backgroundColor: isColorA ? Colors.red : w,
+                        textColor: isColorA ? Colors.white : g,
+                        text: 'A-',
+                        onPressed: () {
+                          setState(() {
+                            search1 = "A-";
+                            isColorA = !isColorA;
+                          });
+                        },
                       ),
-                      Expanded(
-                        child: ElevatedButton(
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            backgroundColor: isColorB ? Colors.red : w,
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 1, color: Colors.black12)),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              search1 = "B+";
-                              isColorB = !isColorB;
-                            });
-                          },
-                          child: Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text("B+",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w400,
-                                    color: isColorB ? Colors.white : g,
-                                  ))),
-                        ),
+                      defaultPageSearch(
+                        backgroundColor: isColorB ? Colors.red : w,
+                        textColor: isColorB ? Colors.white : g,
+                        text: 'B+',
+                        onPressed: () {
+                          setState(() {
+                            search1 = "B+";
+                            isColorB = !isColorB;
+                          });
+                        },
                       ),
-                      Expanded(
-                        child: ElevatedButton(
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            backgroundColor: isColorTextB ? Colors.red : w,
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 1, color: Colors.black12)),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              search1 = "B-";
-                              isColorTextB = !isColorTextB;
-                            });
-                          },
-                          child: Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text("B-",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w400,
-                                    color: isColorTextB ? Colors.white : g,
-                                  ))),
-                        ),
+                      defaultPageSearch(
+                        backgroundColor: isColorTextB ? Colors.red : w,
+                        textColor: isColorTextB ? Colors.white : g,
+                        text: 'B-',
+                        onPressed: () {
+                          setState(() {
+                            search1 = "B-";
+                            isColorTextB = !isColorTextB;
+                          });
+                        },
                       ),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Expanded(
-                        child: ElevatedButton(
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            backgroundColor: isColorO ? Colors.red : w,
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 1, color: Colors.black12)),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              search1 = "O+";
-                              isColorO = !isColorO;
-                            });
-                          },
-                          child: Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text("O+",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w400,
-                                    color: isColorO ? Colors.white : g,
-                                  ))),
-                        ),
+                      defaultPageSearch(
+                        backgroundColor: isColorO ? Colors.red : w,
+                        textColor: isColorO ? Colors.white : g,
+                        text: 'O+',
+                        onPressed: () {
+                          setState(() {
+                            search1 = "O+";
+                            isColorO = !isColorO;
+                          });
+                        },
                       ),
-                      Expanded(
-                        child: ElevatedButton(
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            backgroundColor: isColorText ? Colors.red : w,
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 1, color: Colors.black12)),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              search1 = "O-";
-                              isColorText = !isColorText;
-                            });
-                          },
-                          child: Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text("O-",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w400,
-                                    color: isColorText ? Colors.white : g,
-                                  ))),
-                        ),
+                      defaultPageSearch(
+                        backgroundColor: isColorText ? Colors.red : w,
+                        textColor: isColorText ? Colors.white : g,
+                        text: 'O-',
+                        onPressed: () {
+                          setState(() {
+                            search1 = "O-";
+                            isColorText = !isColorText;
+                          });
+                        },
                       ),
-                      Expanded(
-                        child: ElevatedButton(
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            backgroundColor: isColorAB ? Colors.red : w,
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 1, color: Colors.black12)),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              search1 = "AB+";
-                              isColorAB = !isColorAB;
-                            });
-                          },
-                          child: Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text("AB+",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w400,
-                                    color: isColorAB ? Colors.white : g,
-                                  ))),
-                        ),
+                      defaultPageSearch(
+                        backgroundColor: isColorAB ? Colors.red : w,
+                        textColor: isColorAB ? Colors.white : g,
+                        text: 'AB+',
+                        onPressed: () {
+                          setState(() {
+                            search1 = "AB+";
+                            isColorAB = !isColorAB;
+                          });
+                        },
                       ),
-                      Expanded(
-                        child: ElevatedButton(
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            backgroundColor: isColorTextAB ? Colors.red : w,
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 1, color: Colors.black12)),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              search1 = "AB-";
-                              isColorTextAB = !isColorTextAB;
-                            });
-                          },
-                          child: Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text("AB-",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w400,
-                                    color: isColorTextAB ? Colors.white : g,
-                                  ))),
-                        ),
+                      defaultPageSearch(
+                        backgroundColor: isColorTextAB ? Colors.red : w,
+                        textColor: isColorTextAB ? Colors.white : g,
+                        text: 'AB-',
+                        onPressed: () {
+                          setState(() {
+                            search1 = "AB-";
+                            isColorTextAB = !isColorTextAB;
+                          });
+                        },
                       ),
                     ],
                   ),
@@ -305,77 +188,55 @@ class SearchState extends State<Search> {
               height: 40,
             ),
             Form(
-                key: formKey,
-                child: Container(
-                  width: 350,
-                  height: 60,
-                  child: TextFormField(
-                    showCursor: false,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      hintText: location,
-                      hintStyle: TextStyle(
-                        color: Colors.black26,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 25,
-                      ),
-                      prefixIcon: IconButton(
-                          icon: Icon(
-                            Icons.location_on,
-                            color: Colors.black54,
-                            size: 35,
-                          ),
-                          onPressed: () {
-                            getLocation();
-                          }), //TextStyle
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.black12,
-                        ),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.black12,
-                        ),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.black12,
-                        ),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    keyboardType: TextInputType.text,
-                    onTap: () {
-                      getLocation();
-                    },
-                    validator: (value) {
-                      if (location.isEmpty) {
-                        return "Please Enter Your Location";
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      setState(() {
-                        location = value;
-                      });
-                    },
-                  ),
-                )),
+              key: formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: defaultTextField(
+                  colorFocused: Colors.red,
+                  radius: 30,
+                  maxLines: 5,
+                  text: location,
+                  keyboard: TextInputType.number,
+                  suffix: Icons.location_on,
+                  size: 30,
+                  showCursor: false,
+                  readOnly: true,
+                  color: Colors.black54,
+                  icon: () {
+                    getLocation();
+                  },
+                  onTap: () {
+                    getLocation();
+                  },
+                  validate: (value) {
+                    if (location.isEmpty) {
+                      return "Please Enter Your Location";
+                    }
+                  },
+                  onChange:(value) {
+                    setState(() {
+                      location = value;
+                    });
+                  },
+                ),
+              ),
+            ),
             SizedBox(
               height: 50,
             ),
-            ElevatedButton.icon(
-              style: TextButton.styleFrom(
-                backgroundColor: Color(0xffe60000),
-                fixedSize: Size(170.0, 45.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-              ),
-              onPressed: () {
+            defaultLikesButton(
+              sideColor: Color(0xffe60000),
+              iconSize: 35,
+              textColor: Colors.white,
+              backgroundColor: Color(0xffe60000),
+              radius: 50,
+              width: 170.0,
+              height: 45.0,
+              fontSize: 30,
+              iconColor: Colors.white,
+              icon: Icons.search,
+              text: 'Search',
+              function: () {
                 if (formKey.currentState.validate()) {
                   Navigator.push(
                       context,
@@ -383,15 +244,6 @@ class SearchState extends State<Search> {
                           builder: (context) => search(search1, location)));
                 }
               },
-              icon: Icon(
-                Icons.search,
-                color: w,
-                size: 35,
-              ),
-              label: Text(
-                "Search",
-                style: TextStyle(fontSize: 30, color: w),
-              ),
             ),
           ],
         ),
@@ -420,16 +272,15 @@ class SearchState extends State<Search> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          iconTheme: IconThemeData(color: Colors.black,size: 30),
+          iconTheme: IconThemeData(color: Colors.black, size: 30),
           elevation: 0.0,
         ),
         drawer: Drawer(
           child: DrawerScreen(),
         ),
         body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
@@ -442,104 +293,124 @@ class SearchState extends State<Search> {
               ),
             ),
             StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('users').where('BloodType', isEqualTo: bloodtype).where('adminarea', isEqualTo: location).snapshots(),
-              builder: (context, snapshot) {
-                return (snapshot.connectionState == ConnectionState.waiting)
-                    ? CircularProgressIndicator()
-                 :Column(
-                   children:[
-
-                     if(snapshot.data.docs.length == 0) Padding(
-                       padding: const EdgeInsets.only(top: 50,left: 16.0),
-                       child: Text(
-                           'No Donor is found with blood type $bloodtype in your location',
-                         style: TextStyle(
-                           fontSize: 20,
-                           color: Color.fromRGBO(183, 129, 129, 1)
-                         ),
-                       ),
-                     ),
-                     if(snapshot.data.docs.length >0) Text(
-                       'Find ${snapshot.data.docs.length} donors with $bloodtype blood in your location',
-                       style: TextStyle(
-                         color: Color.fromRGBO(183, 129, 129, 1),
-                       ),
-                     ),
-                     SizedBox(height: 10.0,),
-                     ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: snapshot.data.docs.length,
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot data = snapshot.data.docs[index];
-                      return Card(
-                          margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            side: BorderSide(
-                              color: Colors.grey[300],
-                            ),
-                          ),
-                          child: Column(children: [
-                            Container(
-                              child: ListTile(
-                                leading: Container(
-                                  height: 50.0,
-                                  width: 50.0,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(data['imageurl']),
-                                    ),
-                                  ),
-                                ),
-                                title: Text(
-                                  data["name"],
-                                  style: TextStyle(
-                                      fontSize: 20, color: userName),
-                                ),
-                                subtitle: Text(
-                                  data["adminarea"],
-                                  style:
-                                  TextStyle(fontSize: 18, color: titlee),
-                                ),
-                                onTap: () async {
-                                  await FirebaseAuth.instance.currentUser;
-                                  FirebaseFirestore.instance
-                                      .collection('users')
-                                      .doc(data["userid"])
-                                      .get()
-                                      .then((snapshot) {
-                                    if (snapshot.data()['donor validity'] == 'yes') {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                                  finalsearchGreen(data["userid"])));
-                                    } else if (snapshot.data()['donor validity'] == 'no') {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                                  finalsearchRed(data["userid"])));
-                                    } else {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                          finalsearch(data["userid"])));
-                                    }
-                                  });
-                                },
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .where('BloodType', isEqualTo: bloodtype)
+                    .where('adminarea', isEqualTo: location)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  return (snapshot.connectionState == ConnectionState.waiting)
+                      ? CircularProgressIndicator()
+                      : Column(children: [
+                          if (snapshot.data.docs.length == 0)
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 50, left: 16.0),
+                              child: Text(
+                                'No Donor is found with blood type $bloodtype in your location',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Color.fromRGBO(183, 129, 129, 1)),
                               ),
                             ),
-                          ]));
-                    },
-                ),
-                 ]);
-              }
-            ),
+                          if (snapshot.data.docs.length > 0)
+                            Text(
+                              'Find ${snapshot.data.docs.length} donors with $bloodtype blood in your location',
+                              style: TextStyle(
+                                color: Color.fromRGBO(183, 129, 129, 1),
+                              ),
+                            ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: snapshot.data.docs.length,
+                            itemBuilder: (context, index) {
+                              DocumentSnapshot data = snapshot.data.docs[index];
+                              return Card(
+                                  margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    side: BorderSide(
+                                      color: Colors.grey[300],
+                                    ),
+                                  ),
+                                  child: Column(children: [
+                                    Container(
+                                      child: ListTile(
+                                        leading: Container(
+                                          height: 50.0,
+                                          width: 50.0,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                  data['imageurl']),
+                                            ),
+                                          ),
+                                        ),
+                                        title: Text(
+                                          data["name"],
+                                          style: TextStyle(
+                                              fontSize: 20, color: userName),
+                                        ),
+                                        subtitle: Text(
+                                          data["adminarea"],
+                                          style: TextStyle(
+                                              fontSize: 18, color: titlee),
+                                        ),
+                                        onTap: () {
+                                          FirebaseAuth.instance.currentUser;
+                                          FirebaseFirestore.instance
+                                              .collection('users')
+                                              .doc(data["userid"])
+                                              .get()
+                                              .then((snapshot) {
+                                            if (snapshot
+                                                    .data()['donor validity'] ==
+                                                'yes') {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          finalsearchGreen(
+                                                              data["userid"])));
+                                            } else if (snapshot
+                                                    .data()['donor validity'] ==
+                                                'no') {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          finalsearchRed(
+                                                              data["userid"])));
+                                            } else {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          finalsearch(
+                                                              data["userid"])));
+                                            }
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ]));
+                            },
+                          ),
+                        ]);
+                }),
           ]),
         ));
   }
 }
 
 Widget finalsearch(finall) {
-  var backG = Color.fromRGBO(229, 33, 33, 1);
-  var userName = Color.fromRGBO(191, 49, 49, 1);
   return Scaffold(
     appBar: AppBar(
       backgroundColor: Color(0xffe60000),
@@ -562,58 +433,45 @@ Widget finalsearch(finall) {
                   DocumentSnapshot data = snapshot.data.docs[index];
                   return Column(
                     children: <Widget>[
-                      Stack(
-                        alignment: Alignment.topCenter,
-                        children: <Widget>[
-                          Container(
-                            height: 150.0,
-                            color: backG,
-                            width: double.infinity,
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.only(top:80.0),
-                          child:Container(
-                            height: 140.0,
-                            width: 140.0,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(data['imageurl'])
-                                ),
-                                border: Border.all(
-                                    color: Color.fromRGBO(213, 209, 209, 1), width: 6.0)),
-                          ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.only(top: 230.0,start: 10.0),
-                            child: Text(
-                              data["name"],
-                              style: TextStyle(
-                                  fontSize: 27, color: userName),
-                            ),
-                          ),
-                          chat(),
-                        ],
+                      defaultSearch(
+                          img: data['imageurl'],
+                          name: data['name'],
+                          padding: Padding(padding: EdgeInsets.all(0.0))),
+                      SizedBox(
+                        height: 20.0,
                       ),
-                      SizedBox(height: 20.0,),
-                      defaultResultSearch(icon: Icons.phone, title: 'Phone', trailing: data["phone"]),
+                      defaultResultSearch(
+                          icon: Icons.phone,
+                          title: 'Phone',
+                          trailing: data["phone"]),
                       Divider(
                         color: Colors.grey,
                       ),
-                      defaultResultSearch(icon: Icons.location_on, title: 'Location', trailing: data["adminarea"]),
+                      defaultResultSearch(
+                          icon: Icons.location_on,
+                          title: 'Location',
+                          trailing: data["adminarea"]),
                       Divider(
                         color: Colors.grey,
                       ),
-                      defaultResultSearch(icon: Icons.perm_contact_calendar, title: 'Age', trailing: data["age"]),
+                      defaultResultSearch(
+                          icon: Icons.perm_contact_calendar,
+                          title: 'Age',
+                          trailing: data["age"]),
                       Divider(
                         color: Colors.grey,
                       ),
-                      defaultResultSearch(icon: Icons.local_fire_department_rounded, title: 'Blood Type', trailing: data["BloodType"]),
+                      defaultResultSearch(
+                          icon: Icons.local_fire_department_rounded,
+                          title: 'Blood Type',
+                          trailing: data["BloodType"]),
                       Divider(
                         color: Colors.grey,
                       ),
-                      defaultResultSearch(icon: Icons.event_note, title: 'Blood Donation Validity', trailing: data["donor validity"]),
+                      defaultResultSearch(
+                          icon: Icons.event_note,
+                          title: 'Blood Donation Validity',
+                          trailing: data["donor validity"]),
                     ],
                   );
                 },
@@ -624,8 +482,6 @@ Widget finalsearch(finall) {
 }
 
 Widget finalsearchRed(finall) {
-  var backG = Color.fromRGBO(229, 33, 33, 1);
-  var userName = Color.fromRGBO(191, 49, 49, 1);
   return Scaffold(
     appBar: AppBar(
       backgroundColor: Color(0xffe60000),
@@ -648,107 +504,55 @@ Widget finalsearchRed(finall) {
                   DocumentSnapshot data = snapshot.data.docs[index];
                   return Column(
                     children: <Widget>[
-                      Stack(
-                        alignment: Alignment.topCenter,
-                        children: <Widget>[
-                          Container(
-                            height: 150.0,
-                            color: backG,
-                            width: double.infinity,
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.only(top:80.0),
-                            child:Container(
-                              height: 140.0,
-                              width: 140.0,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(data['imageurl'])
-                                  ),
-                                  border: Border.all(
-                                      color: Color.fromRGBO(213, 209, 209, 1), width: 6.0)),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.only(top: 230.0,start: 10.0),
-                            child: Text(
-                              data["name"],
-                              style: TextStyle(
-                                  fontSize: 27, color: userName),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.only(
-                                top: 180, end: 120),
-                            child: Icon(
-                              Icons.circle,
-                              color: Colors.red,
-                              size: 15,
-                            ),
-                          ),
-                          chat(),
-                        ],
+                      defaultSearch(
+                          img: data['imageurl'],
+                          name: data["name"],
+                          padding: defaultCircle(color: Colors.red)),
+                      SizedBox(
+                        height: 20.0,
                       ),
-                      SizedBox(height: 20.0,),
-                      defaultResultSearch(icon: Icons.phone, title: 'Phone', trailing: data["phone"]),
+                      defaultResultSearch(
+                          icon: Icons.phone,
+                          title: 'Phone',
+                          trailing: data["phone"]),
                       Divider(
                         color: Colors.grey,
                       ),
-                      defaultResultSearch(icon: Icons.location_on, title: 'Location', trailing: data["adminarea"]),
+                      defaultResultSearch(
+                          icon: Icons.location_on,
+                          title: 'Location',
+                          trailing: data["adminarea"]),
                       Divider(
                         color: Colors.grey,
                       ),
-                      defaultResultSearch(icon: Icons.perm_contact_calendar, title: 'Age', trailing: data["age"]),
+                      defaultResultSearch(
+                          icon: Icons.perm_contact_calendar,
+                          title: 'Age',
+                          trailing: data["age"]),
                       Divider(
                         color: Colors.grey,
                       ),
-                      defaultResultSearch(icon: Icons.local_fire_department_rounded, title: 'Blood Type', trailing: data["BloodType"]),
+                      defaultResultSearch(
+                          icon: Icons.local_fire_department_rounded,
+                          title: 'Blood Type',
+                          trailing: data["BloodType"]),
                       Divider(
                         color: Colors.grey,
                       ),
-                      defaultResultSearch(icon: Icons.event_note, title: 'Blood Donation Validity', trailing: data["donor validity"]),
+                      defaultResultSearch(
+                          icon: Icons.event_note,
+                          title: 'Blood Donation Validity',
+                          trailing: data["donor validity"]),
                     ],
                   );
                 },
               );
       },
-    ),
-  );
-}
-
-chat() {
-  return Padding(
-    padding: const EdgeInsetsDirectional.only(top: 130.0,end:270.0),
-    child: Container(
-      width: 40,
-      height: 40,
-      child: IconButton(
-          icon: Icon(
-            Icons.chat_rounded,
-            color: Colors.white,
-            size: 25,
-          ),
-          onPressed: () {}),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50.0),
-        color: Color.fromRGBO(229, 33, 33, 1),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 3.0,
-            color: Colors.grey,
-            offset: Offset(0, 0),
-          ),
-        ],
-      ),
     ),
   );
 }
 
 Widget finalsearchGreen(finall) {
-  var backG = Color.fromRGBO(229, 33, 33, 1);
-  var userName = Color.fromRGBO(191, 49, 49, 1);
   return Scaffold(
     appBar: AppBar(
       backgroundColor: Color(0xffe60000),
@@ -771,67 +575,46 @@ Widget finalsearchGreen(finall) {
                   DocumentSnapshot data = snapshot.data.docs[index];
                   return Column(
                     children: <Widget>[
-                      Stack(
-                        alignment: Alignment.topCenter,
-                        children: <Widget>[
-                          Container(
-                            height: 150.0,
-                            color: backG,
-                            width: double.infinity,
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.only(top:80.0),
-                            child:Container(
-                              height: 140.0,
-                              width: 140.0,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(data['imageurl'])
-                                  ),
-                                  border: Border.all(
-                                      color: Color.fromRGBO(213, 209, 209, 1), width: 6.0)),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.only(top: 230.0,start: 10.0),
-                            child: Text(
-                              data["name"],
-                              style: TextStyle(
-                                  fontSize: 27, color: userName),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.only(
-                                top: 180, end: 120),
-                            child: Icon(
-                              Icons.circle,
-                              color: Colors.green,
-                              size: 15,
-                            ),
-                          ),
-                          chat(),
-                        ],
+                      defaultSearch(
+                        img: data['imageurl'],
+                        name: data["name"],
+                        padding: defaultCircle(color: Colors.green),
                       ),
-                      SizedBox(height: 20.0,),
-                      defaultResultSearch(icon: Icons.phone, title: 'Phone', trailing: data["phone"]),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      defaultResultSearch(
+                          icon: Icons.phone,
+                          title: 'Phone',
+                          trailing: data["phone"]),
                       Divider(
                         color: Colors.grey,
                       ),
-                      defaultResultSearch(icon: Icons.location_on, title: 'Location', trailing: data["adminarea"]),
+                      defaultResultSearch(
+                          icon: Icons.location_on,
+                          title: 'Location',
+                          trailing: data["adminarea"]),
                       Divider(
                         color: Colors.grey,
                       ),
-                      defaultResultSearch(icon: Icons.perm_contact_calendar, title: 'Age', trailing: data["age"]),
+                      defaultResultSearch(
+                          icon: Icons.perm_contact_calendar,
+                          title: 'Age',
+                          trailing: data["age"]),
                       Divider(
                         color: Colors.grey,
                       ),
-                      defaultResultSearch(icon: Icons.local_fire_department_rounded, title: 'Blood Type', trailing: data["BloodType"]),
+                      defaultResultSearch(
+                          icon: Icons.local_fire_department_rounded,
+                          title: 'Blood Type',
+                          trailing: data["BloodType"]),
                       Divider(
                         color: Colors.grey,
                       ),
-                      defaultResultSearch(icon: Icons.event_note, title: 'Blood Donation Validity', trailing: data["donor validity"]),
+                      defaultResultSearch(
+                          icon: Icons.event_note,
+                          title: 'Blood Donation Validity',
+                          trailing: data["donor validity"]),
                     ],
                   );
                 },
@@ -840,5 +623,3 @@ Widget finalsearchGreen(finall) {
     ),
   );
 }
-
-

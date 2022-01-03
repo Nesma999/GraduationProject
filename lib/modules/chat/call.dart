@@ -1,15 +1,13 @@
-import 'package:Conneect_Firebase/modules/chat1.dart';
-import 'package:Conneect_Firebase/modules/posts.dart';
+import 'package:Conneect_Firebase/modules/chat/chat1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import 'drawer.dart';
+import '../drawer/drawer.dart';
 
 class Chattt extends StatefulWidget {
   @override
   ChatttState createState() => ChatttState();
 }
-
 class ChatttState extends State<Chattt> {
   @override
   Widget build(BuildContext context) {
@@ -17,6 +15,7 @@ class ChatttState extends State<Chattt> {
         appBar: AppBar(
           backgroundColor: Colors.red,
           elevation: 0.0,
+          title: Text('Chat'),
         ),
         drawer: Drawer(
           child: DrawerScreen(),
@@ -76,8 +75,15 @@ class ChatttState extends State<Chattt> {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Chat11()));
                     },
-                  )),
-            )
+                  )
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsetsDirectional.only(start: 30.0,end: 30.0),
+              child: Divider(
+                color: Colors.grey[400],
+              ),
+            ),
           ]),
           // new RaisedButton(
           // onPressed: () {

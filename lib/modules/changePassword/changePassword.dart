@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'drawer.dart';
+import '../drawer/drawer.dart';
 
 class Change extends StatefulWidget {
   @override
@@ -181,6 +181,8 @@ class _ChangeState extends State<Change> {
                 ),
                 SizedBox(height: 80),
                 defaultButton(
+                  backgroundColor: Color(0xffe60000),
+                  sideColor:Color(0xffe60000),
                   width: 190.0,
                     text: 'Change',
                     size: 25,

@@ -1,8 +1,8 @@
 //import 'package:begin/Hay.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Result2.dart';
-import 'result1.dart';
+import 'rejectionTest.dart';
+import 'verifyTest.dart';
 
 bool flag14 = true;
 
@@ -248,13 +248,13 @@ class _TestEdit2State extends State<TestEdit2> {
               height: 3.0,
             ),
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(25.0, 0.0, 25.0, 0.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(25.0, 0.0, 25.0, 0.0),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.0),
                   color: Color.fromRGBO(247, 101, 101, 1.0),
                 ),
-
                 child: Column(
                   children: [
                     Padding(
@@ -271,7 +271,9 @@ class _TestEdit2State extends State<TestEdit2> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 30.0,),
+                    SizedBox(
+                      height: 30.0,
+                    ),
                     Padding(
                       padding: const EdgeInsetsDirectional.all(20.0),
                       child: Row(
@@ -279,7 +281,7 @@ class _TestEdit2State extends State<TestEdit2> {
                           Expanded(
                             child: ElevatedButton(
                               style: TextButton.styleFrom(
-                                fixedSize: Size(0.0,35.0),
+                                fixedSize: Size(0.0, 35.0),
                                 backgroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
@@ -314,7 +316,7 @@ class _TestEdit2State extends State<TestEdit2> {
                           Expanded(
                             child: ElevatedButton(
                               style: TextButton.styleFrom(
-                                fixedSize: Size(0.0,35.0),
+                                fixedSize: Size(0.0, 35.0),
                                 backgroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
@@ -343,7 +345,8 @@ class _TestEdit2State extends State<TestEdit2> {
                                             describtion1:
                                                 'You have passed the test and initially got ready to donate. if you have a permanent objection to donation blood ,Go to test again and edit your anwser. ',
                                             buttonText: 'Ok',
-                                            img: AssetImage("assets/images/4.png"),
+                                            img: AssetImage(
+                                                "assets/images/4.png"),
                                           );
                                         });
                                   }
@@ -385,7 +388,9 @@ class _TestEdit2State extends State<TestEdit2> {
                           ),
                         ),
                       ),
-                    SizedBox(height: 30.0,),
+                    SizedBox(
+                      height: 30.0,
+                    ),
                   ],
                 ),
               ),
