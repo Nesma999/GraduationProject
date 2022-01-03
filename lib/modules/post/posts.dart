@@ -8,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:Conneect_Firebase/services/post.dart';
-import 'drawer.dart';
+import '../drawer/drawer.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePageState createState() => MyHomePageState();
@@ -50,6 +50,7 @@ class MyHomePageState extends State<MyHomePage> {
   TextEditingController postdescripition = TextEditingController();
   TextEditingController comment10 = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
+  final GlobalKey<FormState> commentKey = GlobalKey();
   var loginKey = GlobalKey<ScaffoldState>();
   var img, name, contant;
   bool flag1 = true, flag2 = true;
@@ -105,6 +106,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     countlike1(var post) async {
       QuerySnapshot myDoc = await Firestore.instance
           .collection('likes')
@@ -192,26 +194,6 @@ class MyHomePageState extends State<MyHomePage> {
           SizedBox(
             height: 10.0,
           ),
-          // Padding(
-          //   padding: const EdgeInsetsDirectional.all(10.0),
-          //   child: Row(
-          //     children: [
-          //       imageProfile(),
-          //       Padding(
-          //         padding: const EdgeInsetsDirectional.all(10.0),
-          //         child: Container(
-          //           decoration: BoxDecoration(
-          //             border: Border.all(color: Colors.black26),
-          //             borderRadius: BorderRadius.circular(25.0),
-          //           ),
-          //           padding: EdgeInsetsDirectional.only(
-          //               bottom: 10.0, start: 16.0, top: 10.0, end: 178.0),
-          //           child: Text('Write Here.....'),
-          //         ),
-          //       )
-          //     ],
-          //   ),
-          // ),
           ListView.separated(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -246,13 +228,6 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ),
-                    // Container(
-                    //   //padding: EdgeInsetsDirectional.fromSTEB(25, 10, 0, 10),
-                    //   child: Text(
-                    //     postList[index].data()['postdescribtion'],
-                    //     style: TextStyle(fontSize: 18, color: post),
-                    //   ),
-                    // ),
                     Container(
                         padding: EdgeInsets.fromLTRB(30, 10, 0, 0),
                         child: Row(children: [
@@ -311,6 +286,7 @@ class MyHomePageState extends State<MyHomePage> {
                           ),
                           Expanded(
                             child: defaultLikesButton(
+                              textColor: Color.fromRGBO(222, 24, 24, 1),
                               icon: FontAwesomeIcons.thumbsUp,
                               text: 'Like',
                               function: () {
@@ -323,6 +299,7 @@ class MyHomePageState extends State<MyHomePage> {
                           ),
                           Expanded(
                               child: defaultLikesButton(
+                                textColor: Color.fromRGBO(222, 24, 24, 1),
                             icon: FontAwesomeIcons.thumbsDown,
                             text: 'disLike',
                             function: () {},
@@ -332,6 +309,7 @@ class MyHomePageState extends State<MyHomePage> {
                           ),
                           Expanded(
                             child: defaultLikesButton(
+                              textColor: Color.fromRGBO(222, 24, 24, 1),
                               icon: FontAwesomeIcons.comment,
                               text: 'Comment',
                               function: () {
@@ -390,10 +368,9 @@ class MyHomePageState extends State<MyHomePage> {
                                           //size: 25,
                                         ),
                                         onPressed: () {
-                                          Addcomment(
-                                              postList[index].data()['postid']);
-
-                                          //    likeID:  FirebaseFirestore.instance.collection("likes").doc().id,
+                                            Addcomment(
+                                                postList[index]
+                                                    .data()['postid']);
                                         },
                                       ),
                                       hintText: 'Write a Comment',
@@ -439,416 +416,6 @@ class MyHomePageState extends State<MyHomePage> {
             }),
             itemCount: postList.length,
           ),
-          // Padding(
-          //   padding: const EdgeInsetsDirectional.all(16.0),
-          //   child: Form(
-          //       key: _formKey,
-          //       child: Container(
-          //         //padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-          //         child: TextFormField(
-          //           controller: postdescripition,
-          //           decoration: InputDecoration(
-          //             enabledBorder: OutlineInputBorder(
-          //               borderSide: BorderSide(
-          //                 color: Colors.black26,
-          //               ),
-          //               borderRadius: BorderRadius.circular(25),
-          //             ),
-          //             focusedBorder: OutlineInputBorder(
-          //               borderSide: BorderSide(
-          //                 color: Colors.black26,
-          //               ),
-          //               borderRadius: BorderRadius.circular(25),
-          //             ),
-          //             border: OutlineInputBorder(
-          //               borderSide: BorderSide(
-          //                 color: Colors.black26,
-          //               ),
-          //               borderRadius: BorderRadius.circular(25),
-          //             ),
-          //             // filled: true,
-          //             // fillColor: Colors.white,
-          //             suffixIcon: icon(),
-          //             hintText: "Write here....",
-          //             hintStyle: TextStyle(
-          //               color: Color.fromRGBO(200, 125, 125, 1),
-          //               //fontSize: 25,
-          //             ),
-          //           ),
-          //           // maxLines: 5,
-          //           // maxLength: 200,
-          //           validator: (postdescripition) {
-          //             if (postdescripition.isEmpty) {
-          //               return "this field is required";
-          //             }
-          //             return null;
-          //           },
-          //         ),
-          //       )),
-          // ),
-          // Flexible(
-          //     child: postList != null
-          //         ? Container(
-          //             child: ListView.builder(
-          //               itemCount: postList.length,
-          //               itemBuilder: ((context, index) {
-          //                 return Card(
-          //                     margin: EdgeInsets.only(
-          //                         right: 16.0, left: 16.0, bottom: 16.0),
-          //                     color: Colors.white,
-          //                     //elevation: 5,
-          //                     shape: RoundedRectangleBorder(
-          //                       borderRadius: BorderRadius.circular(25),
-          //                       side: BorderSide(
-          //                         color: Colors.black26,
-          //                       ),
-          //                     ),
-          //                     child: Column(children: [
-          //                       Container(
-          //                         padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-          //                         child: ListTile(
-          //                           leading: Container(
-          //                             height: 60.0,
-          //                             width: 60.0,
-          //                             decoration: BoxDecoration(
-          //                               shape: BoxShape.circle,
-          //                               image: DecorationImage(
-          //                                 fit: BoxFit.cover,
-          //                                 image: NetworkImage(
-          //                                     postList[index].data()['img']),
-          //                               ),
-          //                             ),
-          //                           ),
-          //                           title: Text(
-          //                             postList[index].data()['name'],
-          //                             style: TextStyle(
-          //                                 fontSize: 20, color: userName),
-          //                           ),
-          //                         ),
-          //                       ),
-          //                       Container(
-          //                         child: Column(children: [
-          //                           Container(
-          //                               padding:
-          //                                   EdgeInsets.fromLTRB(30, 10, 0, 15),
-          //                               child: Row(children: [
-          //                                 Expanded(
-          //                                   child: Text(
-          //                                     postList[index]
-          //                                         .data()['postdescribtion'],
-          //                                     style: TextStyle(
-          //                                         fontSize: 25, color: post),
-          //                                   ),
-          //                                 ),
-          //                               ])),
-          //                           Container(
-          //                               child: FlatButton(
-          //                                   padding: EdgeInsets.fromLTRB(
-          //                                       20, 10, 0, 10),
-          //                                   onPressed: () {
-          //                                     Navigator.push(
-          //                                         context,
-          //                                         MaterialPageRoute(
-          //                                             builder: (context) => add(
-          //                                                 postList[index].data()[
-          //                                                     'postid'])));
-          //                                   },
-          //                                   child: Row(
-          //                                     children: [
-          //                                       FutureBuilder(
-          //                                           future: countlike1(
-          //                                               postList[index]
-          //                                                   .data()['postid']),
-          //                                           builder: (context, snapshot) {
-          //                                             return Text(
-          //                                               "$countlikee",
-          //                                               style: TextStyle(
-          //                                                 fontSize: 23,
-          //                                                 color: react,
-          //                                                 fontFamily: 'Arial',
-          //                                               ),
-          //                                             );
-          //                                           }),
-          //                                       SizedBox(width: 5),
-          //                                       Icon(
-          //                                         FontAwesomeIcons.thumbsDown,
-          //                                         size: 20,
-          //                                       ),
-          //                                       Icon(
-          //                                         FontAwesomeIcons.thumbsUp,
-          //                                         size: 20,
-          //                                       ),
-          //                                     ],
-          //                                   ))),
-          //                           Row(children: [
-          //                             SizedBox(
-          //                               width: 20,
-          //                             ),
-          //                             RaisedButton(
-          //                               padding:
-          //                                   EdgeInsets.fromLTRB(15, 0, 10, 0),
-          //                               color: Colors.white,
-          //                               shape: RoundedRectangleBorder(
-          //                                 borderRadius: BorderRadius.circular(20),
-          //                                 side: BorderSide(
-          //                                   color: Colors.black26,
-          //                                 ),
-          //                               ),
-          //                               child: Row(children: [
-          //                                 Icon(
-          //                                   FontAwesomeIcons.thumbsUp,
-          //                                   size: 20,
-          //                                 ),
-          //                                 SizedBox(
-          //                                   width: 5,
-          //                                 ),
-          //                                 Text(
-          //                                   "Like",
-          //                                   style: TextStyle(
-          //                                       color: react, fontSize: 15),
-          //                                 ),
-          //                               ]),
-          //                               onPressed: () {
-          //                                 addlike(
-          //                                     postList[index].data()['postid']);
-          //                               },
-          //                             ),
-          //                             SizedBox(
-          //                               width: 20,
-          //                             ),
-          //                             RaisedButton(
-          //                               padding:
-          //                                   EdgeInsets.fromLTRB(15, 0, 10, 0),
-          //                               color: Colors.white,
-          //                               shape: RoundedRectangleBorder(
-          //                                 borderRadius: BorderRadius.circular(20),
-          //                                 side: BorderSide(
-          //                                   color: Colors.black26,
-          //                                 ),
-          //                               ),
-          //                               child: Row(children: [
-          //                                 Icon(
-          //                                   FontAwesomeIcons.thumbsDown,
-          //                                   size: 20,
-          //                                 ),
-          //                                 SizedBox(
-          //                                   width: 5,
-          //                                 ),
-          //                                 Text(
-          //                                   "disLike",
-          //                                   style: TextStyle(
-          //                                       color: react, fontSize: 15),
-          //                                 ),
-          //                               ]),
-          //                               onPressed: () {},
-          //                             ),
-          //                             SizedBox(
-          //                               width: 20,
-          //                             ),
-          //                             RaisedButton(
-          //                               padding:
-          //                                   EdgeInsets.fromLTRB(15, 0, 10, 0),
-          //                               color: Colors.white,
-          //                               shape: RoundedRectangleBorder(
-          //                                 borderRadius: BorderRadius.circular(20),
-          //                                 side: BorderSide(
-          //                                   color: Colors.black26,
-          //                                 ),
-          //                               ),
-          //                               child: Row(children: [
-          //                                 Icon(
-          //                                   FontAwesomeIcons.comment,
-          //                                   size: 20,
-          //                                 ),
-          //                                 SizedBox(
-          //                                   width: 5,
-          //                                 ),
-          //                                 Text(
-          //                                   "Comment",
-          //                                   style: TextStyle(
-          //                                       color: react, fontSize: 15),
-          //                                 ),
-          //                               ]),
-          //                               onPressed: () {
-          //                                 //showcomment(postList);
-          //                                 Navigator.push(
-          //                                     context,
-          //                                     MaterialPageRoute(
-          //                                         builder: (context) =>
-          //                                             commentfetch(postList[index]
-          //                                                 .data()['postid'])));
-          //                               },
-          //                             ),
-          //                           ]),
-          //                           Column(
-          //                             children: [
-          //                               Container(
-          //                                 child: Column(children: [
-          //                                   Container(
-          //                                       padding: EdgeInsets.fromLTRB(5, 0, 5, 10),
-          //                                       child: Row(children: [
-          //                                         Expanded(
-          //                                           child: Card(
-          //                                             margin: EdgeInsets.all(10),
-          //                                             color: Colors.white,
-          //                                             shape:
-          //                                                 RoundedRectangleBorder(
-          //                                               borderRadius:
-          //                                                   BorderRadius.circular(
-          //                                                       25),
-          //                                               side: BorderSide(
-          //                                                 color: Colors.black26,
-          //                                               ),
-          //                                             ),
-          //                                             child: Container(
-          //                                                 padding:
-          //                                                     EdgeInsets.fromLTRB(
-          //                                                         5, 0, 10, 0),
-          //                                                 child: Column(
-          //                                                     children: [
-          //                                                       Container(
-          //                                                         padding:
-          //                                                             EdgeInsets.fromLTRB(5,15,0,5),
-          //                                                         child:
-          //                                                             TextFormField(
-          //                                                           controller:
-          //                                                               comment10,
-          //                                                           decoration:
-          //                                                               InputDecoration(
-          //                                                             enabledBorder:
-          //                                                                 OutlineInputBorder(
-          //                                                               borderRadius:
-          //                                                                   BorderRadius.circular(
-          //                                                                       25),
-          //                                                               borderSide:
-          //                                                                   BorderSide(
-          //                                                                       color: Colors.red),
-          //                                                             ),
-          //                                                             focusedBorder:
-          //                                                                 OutlineInputBorder(
-          //                                                               borderSide:
-          //                                                                   BorderSide(
-          //                                                                 color: Colors
-          //                                                                     .red,
-          //                                                               ),
-          //                                                               borderRadius:
-          //                                                                   BorderRadius.circular(
-          //                                                                       25),
-          //                                                             ),
-          //                                                             border:
-          //                                                                 OutlineInputBorder(
-          //                                                               borderSide:
-          //                                                                   BorderSide(
-          //                                                                 color: Colors
-          //                                                                     .red,
-          //                                                               ),
-          //                                                               borderRadius:
-          //                                                                   BorderRadius.circular(
-          //                                                                       25),
-          //                                                             ),
-          //                                                             suffixIcon:
-          //                                                                 IconButton(
-          //                                                               icon:
-          //                                                                   Icon(
-          //                                                                 Icons
-          //                                                                     .send_rounded,
-          //                                                                 color: Colors
-          //                                                                     .black54,
-          //                                                                 size:
-          //                                                                     25,
-          //                                                               ),
-          //                                                               onPressed:
-          //                                                                   () {
-          //                                                                 Addcomment(
-          //                                                                     postList[index].data()['postid']);
-          //
-          //                                                                 //    likeID:  FirebaseFirestore.instance.collection("likes").doc().id,
-          //                                                               },
-          //                                                             ),
-          //                                                             hintText:
-          //                                                                 'Write a Comment',
-          //                                                             filled:
-          //                                                                 true,
-          //                                                             fillColor:
-          //                                                                 Colors
-          //                                                                     .white,
-          //                                                             hintStyle:
-          //                                                                 TextStyle(
-          //                                                               color: Color.fromRGBO(
-          //                                                                   199,
-          //                                                                   179,
-          //                                                                   179,
-          //                                                                   1),
-          //                                                               fontSize:
-          //                                                                   20,
-          //                                                             ),
-          //                                                           ),
-          //                                                           validator:
-          //                                                               (val) {
-          //                                                             if (val
-          //                                                                 .isEmpty) {
-          //                                                               return "this field is required";
-          //                                                             }
-          //
-          //                                                             return null;
-          //                                                           },
-          //                                                         ),
-          //                                                       ),
-          //                                                       Column(children: [
-          //                                                         Container(
-          //                                                           padding: EdgeInsets.fromLTRB(5,0,160,5),
-          //                                                           child:
-          //                                                               RaisedButton(
-          //                                                             //padding: EdgeInsets.fromLTRB(15, 5, 20, 5),
-          //                                                             color: Color.fromRGBO(255,225,225,1),
-          //                                                             shape:
-          //                                                                 RoundedRectangleBorder(
-          //                                                               borderRadius:
-          //                                                                   BorderRadius.circular(
-          //                                                                       20),
-          //                                                               side:
-          //                                                                   BorderSide(
-          //                                                                 color: Color.fromRGBO(
-          //                                                                     255,
-          //                                                                     225,
-          //                                                                     225,
-          //                                                                     1),
-          //                                                               ),
-          //                                                             ),
-          //                                                             child: Text(
-          //                                                               "View all comments",
-          //                                                               style: TextStyle(
-          //                                                                   color:
-          //                                                                       react,
-          //                                                                   fontSize:
-          //                                                                       15),
-          //                                                             ),
-          //                                                             onPressed:
-          //                                                                 () {
-          //                                                               Addcomment(
-          //                                                                   postList[index]
-          //                                                                       .data()['postid']);
-          //                                                             },
-          //                                                           ),
-          //                                                         )
-          //                                                       ])
-          //                                                     ])),
-          //                                           ),
-          //                                         ),
-          //                                       ])),
-          //                                 ]),
-          //                               ),
-          //                             ],
-          //                           )
-          //                         ]),
-          //                       )
-          //                     ]));
-          //               }),
-          //             ),
-          //           )
-          //         : Center(
-          //             child: CircularProgressIndicator(),
-          //           )),
         ]),
       ),
     );
@@ -938,35 +505,32 @@ class MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(
           title: Row(
+            //mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(width: 80),
-              Row(
-                children: [
-                  Icon(
-                    FontAwesomeIcons.react,
-                    color: Colors.grey[800],
-                    size: 35,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    'Reacts',
-                    style: TextStyle(
-                      fontFamily: 'Comic Sans MS',
-                      //fontWeight: FontWeight.bold,
-                      fontSize: 27,
-                      // fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+              SizedBox(width: 55,),
+              Icon(
+                FontAwesomeIcons.react,
+                color: Colors.white,
+                size: 25,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                'Reacts',
+                style: TextStyle(
+                  fontFamily: 'Comic Sans MS',
+                  //fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  // fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
           backgroundColor: Colors.red,
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
-            color: Colors.black,
+            color: Colors.white,
             onPressed: () {
               Navigator.pushReplacement(
                   context,
@@ -1023,34 +587,30 @@ class MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Row(
             children: [
-              SizedBox(width: 60),
-              Row(
-                children: [
-                  Icon(
-                    Icons.comment,
-                    color: Colors.grey[800],
-                    size: 35,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    'Comments',
-                    style: TextStyle(
-                      fontFamily: 'Comic Sans MS',
-                      //fontWeight: FontWeight.bold,
-                      fontSize: 27,
-                      // fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+              SizedBox(width: 55),
+              Icon(
+                Icons.comment,
+                color: Colors.white,
+                size: 25,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                'Comments',
+                style: TextStyle(
+                  fontFamily: 'Comic Sans MS',
+                  //fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  // fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
           backgroundColor: Colors.red,
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
-            color: Colors.black,
+            color: Colors.white,
             onPressed: () {
               Navigator.pushReplacement(
                   context,
@@ -1085,55 +645,29 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 child: Column(children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                    child: ListTile(
-                        leading: Container(
-                          height: 60.0,
-                          width: 60.0,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(doc['img']),
-                            ),
+                  ListTile(
+                      leading: Container(
+                        height: 60.0,
+                        width: 60.0,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(doc['img']),
                           ),
                         ),
-                        title: Text(
-                          doc['name'],
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                        ),
-                        subtitle: Text(
-                          doc['comment'],
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Color.fromRGBO(167, 117, 117, 1)),
-                        )),
-                  ),
+                      ),
+                      title: Text(
+                        doc['name'],
+                        style: TextStyle(fontSize: 20, color: Colors.black),
+                      ),
+                      subtitle: Text(
+                        doc['comment'],
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Color.fromRGBO(167, 117, 117, 1)),
+                      )),
                 ]))
-            // Column(children: [
-            //   Container(
-            //     padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            //     child: ListTile(
-            //       leading: Container(
-            //         height: 60.0,
-            //         width: 60.0,
-            //         decoration: BoxDecoration(
-            //           shape: BoxShape.circle,
-            //           image: DecorationImage(
-            //             fit: BoxFit.cover,
-            //             image: NetworkImage(doc['img']),
-            //           ),
-            //         ),
-            //       ),
-            //       title: Text(
-            //         doc['comment'],
-            //         style: TextStyle(
-            //             fontSize: 20, color: Color.fromRGBO(167, 117, 117, 1)),
-            //       ),
-            //     ),
-            //   )
-            // ]),
             )
         .toList();
   }

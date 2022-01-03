@@ -18,7 +18,6 @@ class _newMessageState extends State<newMessage> {
           .collection('users')
           .doc(user.uid)
           .get();
-
       FirebaseFirestore.instance.collection('chat').add(
           // كل ما اضغط ع ال button  يظهرلى ع الشاشه ال  text  و يروح يزودها ف ال firestore
           {

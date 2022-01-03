@@ -2,7 +2,7 @@ import 'package:Conneect_Firebase/Components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'donorList.dart';
+import 'showDonorList.dart';
 
 class DashBoard extends StatefulWidget {
   static String id = '';
@@ -50,10 +50,7 @@ class DashBoardState extends State<DashBoard> {
                         side: BorderSide(color: Colors.grey[300]),
                       ),
                     ),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => DashBoard()));
-                    },
+                    onPressed: () {},
                     child: Text(
                       "DashBoard",
                       style: TextStyle(color: Colors.white, fontSize: 20),

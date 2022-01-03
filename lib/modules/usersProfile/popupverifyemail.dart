@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
+import '../login/login.dart';
 
 
 class AdvanceCustomAlert extends StatelessWidget {
@@ -11,7 +11,6 @@ class AdvanceCustomAlert extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4.0)),
             child: Stack(
-              overflow: Overflow.visible,
               alignment: Alignment.topCenter,
               children: [
                 Container(
@@ -35,14 +34,16 @@ class AdvanceCustomAlert extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        RaisedButton(
+                        ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => LoginPage()));
                           },
-                          color: Colors.redAccent,
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.redAccent,
+                          ),
                           child: Text(
                             'Okay',
                             style: TextStyle(color: Colors.white),

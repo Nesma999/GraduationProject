@@ -9,20 +9,6 @@ class DonorList extends StatefulWidget {
 }
 
 class DonorListState extends State<DonorList> {
-  var img, name, contant, search;
-  bool flag1 = true, flag2 = true;
-  var text = Color.fromRGBO(213, 209, 209, 1);
-  var r = Color.fromRGBO(218, 19, 19, 1);
-  var backG = Color.fromRGBO(229, 33, 33, 1);
-  var bar = Color.fromRGBO(255, 255, 255, 1);
-  var userName = Color.fromRGBO(167, 117, 117, 1);
-  var post = Color.fromRGBO(59, 45, 45, 1);
-  var react = Color.fromRGBO(222, 24, 24, 1);
-  var comment = Color.fromRGBO(213, 68, 68, 1);
-  int _counter = 0;
-  String owner;
-  //var bouttom = Color.fromRGBO(255, 255, 255, 1);
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -131,7 +117,7 @@ class DonorListState extends State<DonorList> {
                               title: Text(
                                 e["name"],
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     color: Color.fromRGBO(167, 117, 117, 1)),
                               ),
@@ -143,7 +129,7 @@ class DonorListState extends State<DonorList> {
                               ),
                               trailing: ElevatedButton(
                                 style: TextButton.styleFrom(
-                                  fixedSize: Size(70.0,30.0),
+                                  fixedSize: Size(70.0, 30.0),
                                   backgroundColor:
                                       Color.fromRGBO(201, 124, 124, 1),
                                   shape: RoundedRectangleBorder(
@@ -153,7 +139,7 @@ class DonorListState extends State<DonorList> {
                                 child: Text(
                                   e["BloodType"],
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
+                                      color: Colors.white, fontSize: 16),
                                 ),
                               ),
                             ),

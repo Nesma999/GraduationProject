@@ -1,6 +1,6 @@
-import 'package:Conneect_Firebase/modules/messages/message.dart';
-import 'package:Conneect_Firebase/modules/messages/new_message.dart';
-import 'package:Conneect_Firebase/modules/posts.dart';
+import 'package:Conneect_Firebase/modules/chat/message.dart';
+import 'package:Conneect_Firebase/modules/chat/new_message.dart';
+import 'package:Conneect_Firebase/modules/post/posts.dart';
 import 'package:flutter/material.dart';
 
 class Chat11 extends StatefulWidget {
@@ -19,13 +19,9 @@ class Chat11 extends StatefulWidget {
         backgroundColor: Colors.red,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
-          color: Colors.black,
+          color: Colors.white,
           onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MyHomePage(),
-                ));
+            Navigator.pop(context);
           },
         ),
       ),

@@ -1,7 +1,7 @@
-import 'package:Conneect_Firebase/modules/profile.dart';
+import 'package:Conneect_Firebase/modules/usersProfile/profile.dart';
 import 'package:flutter/material.dart';
-import 'Result2.dart';
-import 'result1.dart';
+import 'rejectionTest.dart';
+import 'verifyTest.dart';
 
 bool flag14 = true;
 

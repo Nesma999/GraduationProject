@@ -5,7 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
-import 'BackGraund.dart';
+import '../../shared/style/background/backGraund.dart';
+
 class Register extends StatefulWidget {
   static String id = 'FormScreen';
   @override
@@ -15,28 +16,20 @@ class Register extends StatefulWidget {
 }
 
 class RegisterState extends State<Register> {
-  var backG = Color.fromRGBO(229, 33, 33, 1);
-  var gr = Color.fromRGBO(230, 230, 230, 1);
-  var b = Colors.black;
-  var w = Colors.white;
   User user;
   bool passwordShow = true;
   bool isPasswordShow = true;
-  String _name,
-      _phone,
-      _age,
-      email,
-      _password,
-      _bloodeType;
+  String _name, _phone, _age, email, _password, _bloodeType;
   int state = 1;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var fCode = GlobalKey<FormState>();
   TextEditingController password = TextEditingController();
-  TextEditingController confirmpassword = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
   var loginKey = GlobalKey<ScaffoldState>();
   FirebaseAuth instance = FirebaseAuth.instance;
   var locationMessage = "Location";
   var lat, long, country, adminarea, addressline, subadmin, code;
+
   _getLocation() async {
     var position = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
@@ -290,7 +283,7 @@ class RegisterState extends State<Register> {
                       ),
                       SizedBox(height: 16.0),
                       defaultTextField(
-                        control: confirmpassword,
+                        control: confirmPassword,
                         text: 'Confirm Password',
                         keyboard: TextInputType.visiblePassword,
                         suffix: isPasswordShow
@@ -307,7 +300,7 @@ class RegisterState extends State<Register> {
                           if (value.isEmpty) {
                             return 'This field is Required';
                           }
-                          if (password.text != confirmpassword.text) {
+                          if (password.text != confirmPassword.text) {
                             return "Password does not match";
                           }
                           if (value.length < 5) {
@@ -320,8 +313,10 @@ class RegisterState extends State<Register> {
                       ),
                       SizedBox(height: 16.0),
                       defaultButton(
-                        width: 140.0,
-                        size: 10,
+                          backgroundColor: Color(0xffe60000),
+                          sideColor: Color(0xffe60000),
+                          width: 140.0,
+                          size: 10,
                           text: 'SignUp',
                           tap: () {
                             register();
@@ -366,6 +361,7 @@ class RegisterState extends State<Register> {
   }
 
   Future<void> register() async {
+    final scaffold = ScaffoldMessenger.of(context);
     final formData = _formKey.currentState;
     if (formData.validate()) {
       formData.save();
@@ -387,7 +383,7 @@ class RegisterState extends State<Register> {
           'subadminarea': subadmin,
           'country': country,
           'imageurl':
-          'https://i.pinimg.com/564x/04/28/f5/0428f5706e19f681febc5aa677d7e282.jpg',
+              'https://i.pinimg.com/564x/04/28/f5/0428f5706e19f681febc5aa677d7e282.jpg',
           'userid': credential.user.uid,
           'role': 'notAdmin',
           'BloodType': _bloodeType.toUpperCase(),
@@ -398,210 +394,214 @@ class RegisterState extends State<Register> {
             context, MaterialPageRoute(builder: (context) => LoginPage()));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'email-already-in-use') {
-          loginKey.currentState.showSnackBar(SnackBar(
-            content: Text("Email already exist"),
-          ));
+          scaffold.showSnackBar(
+            SnackBar(
+              content: const Text('Email already exist'),
+            ),
+          );
         } else if (e.code == 'weak-password') {
-          //shwo snackbar
-          loginKey.currentState.showSnackBar(SnackBar(
-            content: Text("Your Password Is weak"),
-          ));
+          scaffold.showSnackBar(
+            SnackBar(
+              content: const Text('Your Password Is weak'),
+            ),
+          );
         } else if (e.code == 'invalid-email') {
-          //shwo snackbar
-          loginKey.currentState.showSnackBar(SnackBar(
-            content: Text("Invalid Email"),
-          ));
+          scaffold.showSnackBar(
+            SnackBar(
+              content: const Text('Invalid Email'),
+            ),
+          );
         }
       } catch (e) {
         print(e.code);
       }
     }
   }
-  }
-  // void verificationEmail() async {
-  //   EmailAuth.sessionName = "Blood Donation";
-  //   var ref = await EmailAuth.sendOtp(receiverMail: email);
-  //   if(ref) {
-  //     print("code send");
-  //     showDialogFun(context);
-  //   }else {
-  //     print("code not send");
-  //   }
-  // }
-  //
-  // void verifyCode() async {
-  //   var ref = EmailAuth.validate(receiverMail: email, userOTP: code);
-  //   if (ref) {
-  //     print("code verifed");
-  //     try {
-  //       UserCredential credential = await FirebaseAuth.instance
-  //           .createUserWithEmailAndPassword(email: email, password: _password);
-  //       FirebaseFirestore.instance
-  //           .collection('users')
-  //           .doc(credential.user.uid)
-  //           .set({
-  //         'name': this._name,
-  //         'age': this._age,
-  //         'phone': this._phone,
-  //         'long': long,
-  //         'lat': lat,
-  //         'adminarea': adminarea,
-  //         'addressline': addressline,
-  //         'subadminarea': subadmin,
-  //         'country': country,
-  //         'imageurl':
-  //             'https://i.pinimg.com/564x/04/28/f5/0428f5706e19f681febc5aa677d7e282.jpg',
-  //         'userid': credential.user.uid,
-  //         'role': 'notAdmin',
-  //         'BloodType': _bloodeType,
-  //         "flag": "0",
-  //         "donor validity": "-",
-  //       });
-  //     } on FirebaseAuthException catch (e) {
-  //       if (e.code == 'email-already-in-use') {
-  //         loginKey.currentState.showSnackBar(SnackBar(
-  //           content: Text("Email already exist"),
-  //         ));
-  //       } else if (e.code == 'weak-password') {
-  //         //shwo snackbar
-  //         loginKey.currentState.showSnackBar(SnackBar(
-  //           content: Text("Your Password Is weak"),
-  //         ));
-  //       } else if (e.code == 'invalid-email') {
-  //         //shwo snackbar
-  //         loginKey.currentState.showSnackBar(SnackBar(
-  //           content: Text("Invalid Email"),
-  //         ));
-  //       }
-  //     } catch (e) {
-  //       print(e.code);
-  //     }
-  //     Navigator.pushReplacement(
-  //         context, MaterialPageRoute(builder: (context) => LoginPage()));
-  //   } else {
-  //     loginKey.currentState.showSnackBar(SnackBar(
-  //       content: Text("Invalid Code"),
-  //     ));
-  //   }
-  // }
-  //
-  // showDialogFun(context) {
-  //   return showDialog(
-  //        barrierDismissible: false,
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return Dialog(
-  //           shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.circular(20.0),
-  //           ),
-  //           child: SingleChildScrollView(
-  //             child: Container(
-  //               height: 500,
-  //               width: double.infinity,
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.center,
-  //                 mainAxisAlignment: MainAxisAlignment.center,
-  //                 children: [
-  //                   Padding(
-  //                     padding: EdgeInsets.fromLTRB(80, 0, 80, 0),
-  //                     child: Container(
-  //                       width: 85,
-  //                       height: 85,
-  //                       child: IconButton(
-  //                         icon: Icon(
-  //                           Icons.email_rounded,
-  //                           color: Colors.white,
-  //                           size: 60,
-  //                         ),
-  //                         onPressed: () {},
-  //                       ),
-  //                       decoration: BoxDecoration(
-  //                         borderRadius: BorderRadius.circular(50.0),
-  //                         color: backG,
-  //                         boxShadow: [
-  //                           BoxShadow(
-  //                             blurRadius: 3.0,
-  //                             color: Colors.grey,
-  //                             offset: Offset(0, 0),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                   ),
-  //                   Padding(
-  //                     padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-  //                     child: Text(
-  //                       "Email Verification",
-  //                       style: TextStyle(
-  //                           fontSize: 25, fontWeight: FontWeight.bold),
-  //                     ),
-  //                   ),
-  //                   Padding(
-  //                     padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-  //                     child: Text(
-  //                       "Enter the code sent to your email",
-  //                       style: TextStyle(
-  //                         fontSize: 15,
-  //                       ),
-  //                     ),
-  //                   ),
-  //                   Form(
-  //                     key: fCode,
-  //                     child: Padding(
-  //                       padding: const EdgeInsets.all(20.0),
-  //                       child: defaultTextField(
-  //                         text: 'Enter Code',
-  //                         keyboard: TextInputType.number,
-  //                         validate: (value) {
-  //                           if (value.isEmpty) {
-  //                             return "this field is required";
-  //                           }
-  //                         },
-  //                         onChange: (value) {
-  //                           code = value;
-  //                         },
-  //                       ),
-  //                     ),
-  //                   ),
-  //                   Row(
-  //                     mainAxisAlignment: MainAxisAlignment.center,
-  //                     children: [
-  //                       Text(
-  //                         "Don't receive the code? ",
-  //                         style: TextStyle(
-  //                           color: Color(0xff2A2222),
-  //                           fontSize: 15,
-  //                         ),
-  //                       ),
-  //                       TextButton(
-  //                         onPressed: () {
-  //                           verificationEmail();
-  //                         },
-  //                         child: Text(
-  //                           "RESEND",
-  //                           style: TextStyle(
-  //                             color: Color(0xffE17373),
-  //                             fontSize: 15,
-  //                           ),
-  //                         ),
-  //                       )
-  //                     ],
-  //                   ),
-  //                   SizedBox(
-  //                     height: 20.0,
-  //                   ),
-  //                   defaultButton(
-  //                       text: 'Verify',
-  //                       tap: () {
-  //                         if(fCode.currentState.validate()) {
-  //                           verifyCode();
-  //                         }
-  //                       }),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         );
-  //       });
-  // }
+}
+// void verificationEmail() async {
+//   EmailAuth.sessionName = "Blood Donation";
+//   var ref = await EmailAuth.sendOtp(receiverMail: email);
+//   if(ref) {
+//     print("code send");
+//     showDialogFun(context);
+//   }else {
+//     print("code not send");
+//   }
+// }
+//
+// void verifyCode() async {
+//   var ref = EmailAuth.validate(receiverMail: email, userOTP: code);
+//   if (ref) {
+//     print("code verifed");
+//     try {
+//       UserCredential credential = await FirebaseAuth.instance
+//           .createUserWithEmailAndPassword(email: email, password: _password);
+//       FirebaseFirestore.instance
+//           .collection('users')
+//           .doc(credential.user.uid)
+//           .set({
+//         'name': this._name,
+//         'age': this._age,
+//         'phone': this._phone,
+//         'long': long,
+//         'lat': lat,
+//         'adminarea': adminarea,
+//         'addressline': addressline,
+//         'subadminarea': subadmin,
+//         'country': country,
+//         'imageurl':
+//             'https://i.pinimg.com/564x/04/28/f5/0428f5706e19f681febc5aa677d7e282.jpg',
+//         'userid': credential.user.uid,
+//         'role': 'notAdmin',
+//         'BloodType': _bloodeType,
+//         "flag": "0",
+//         "donor validity": "-",
+//       });
+//     } on FirebaseAuthException catch (e) {
+//       if (e.code == 'email-already-in-use') {
+//         loginKey.currentState.showSnackBar(SnackBar(
+//           content: Text("Email already exist"),
+//         ));
+//       } else if (e.code == 'weak-password') {
+//         //shwo snackbar
+//         loginKey.currentState.showSnackBar(SnackBar(
+//           content: Text("Your Password Is weak"),
+//         ));
+//       } else if (e.code == 'invalid-email') {
+//         //shwo snackbar
+//         loginKey.currentState.showSnackBar(SnackBar(
+//           content: Text("Invalid Email"),
+//         ));
+//       }
+//     } catch (e) {
+//       print(e.code);
+//     }
+//     Navigator.pushReplacement(
+//         context, MaterialPageRoute(builder: (context) => LoginPage()));
+//   } else {
+//     loginKey.currentState.showSnackBar(SnackBar(
+//       content: Text("Invalid Code"),
+//     ));
+//   }
+// }
+//
+// showDialogFun(context) {
+//   return showDialog(
+//        barrierDismissible: false,
+//       context: context,
+//       builder: (BuildContext context) {
+//         return Dialog(
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(20.0),
+//           ),
+//           child: SingleChildScrollView(
+//             child: Container(
+//               height: 500,
+//               width: double.infinity,
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.center,
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: [
+//                   Padding(
+//                     padding: EdgeInsets.fromLTRB(80, 0, 80, 0),
+//                     child: Container(
+//                       width: 85,
+//                       height: 85,
+//                       child: IconButton(
+//                         icon: Icon(
+//                           Icons.email_rounded,
+//                           color: Colors.white,
+//                           size: 60,
+//                         ),
+//                         onPressed: () {},
+//                       ),
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.circular(50.0),
+//                         color: backG,
+//                         boxShadow: [
+//                           BoxShadow(
+//                             blurRadius: 3.0,
+//                             color: Colors.grey,
+//                             offset: Offset(0, 0),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                   Padding(
+//                     padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+//                     child: Text(
+//                       "Email Verification",
+//                       style: TextStyle(
+//                           fontSize: 25, fontWeight: FontWeight.bold),
+//                     ),
+//                   ),
+//                   Padding(
+//                     padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+//                     child: Text(
+//                       "Enter the code sent to your email",
+//                       style: TextStyle(
+//                         fontSize: 15,
+//                       ),
+//                     ),
+//                   ),
+//                   Form(
+//                     key: fCode,
+//                     child: Padding(
+//                       padding: const EdgeInsets.all(20.0),
+//                       child: defaultTextField(
+//                         text: 'Enter Code',
+//                         keyboard: TextInputType.number,
+//                         validate: (value) {
+//                           if (value.isEmpty) {
+//                             return "this field is required";
+//                           }
+//                         },
+//                         onChange: (value) {
+//                           code = value;
+//                         },
+//                       ),
+//                     ),
+//                   ),
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: [
+//                       Text(
+//                         "Don't receive the code? ",
+//                         style: TextStyle(
+//                           color: Color(0xff2A2222),
+//                           fontSize: 15,
+//                         ),
+//                       ),
+//                       TextButton(
+//                         onPressed: () {
+//                           verificationEmail();
+//                         },
+//                         child: Text(
+//                           "RESEND",
+//                           style: TextStyle(
+//                             color: Color(0xffE17373),
+//                             fontSize: 15,
+//                           ),
+//                         ),
+//                       )
+//                     ],
+//                   ),
+//                   SizedBox(
+//                     height: 20.0,
+//                   ),
+//                   defaultButton(
+//                       text: 'Verify',
+//                       tap: () {
+//                         if(fCode.currentState.validate()) {
+//                           verifyCode();
+//                         }
+//                       }),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         );
+//       });
+// }
 //}

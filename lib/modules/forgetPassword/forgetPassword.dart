@@ -3,7 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'login/login.dart';
+import '../login/login.dart';
 
 class ForgetPassword extends StatefulWidget {
   @override
@@ -134,6 +134,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   ),
                   SizedBox(height: 100.0),
                   defaultButton(
+                    backgroundColor: Color(0xffe60000),
+                    sideColor:Color(0xffe60000),
                     text: 'Send',
                     tap: () {
                       forgetPass();

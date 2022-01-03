@@ -4,7 +4,7 @@ import 'package:Conneect_Firebase/shared/cubit/cubit.dart';
 import 'package:Conneect_Firebase/shared/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'drawer.dart';
+import '../drawer/drawer.dart';
 import 'editLoc.dart';
 
 class Imagee extends StatefulWidget {

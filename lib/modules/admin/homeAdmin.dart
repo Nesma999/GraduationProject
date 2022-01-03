@@ -1,6 +1,7 @@
-import 'package:Conneect_Firebase/modules/admin/approve.dart';
+import 'package:Conneect_Firebase/Components/components.dart';
+import 'package:Conneect_Firebase/modules/admin/approvePosts.dart';
 import 'package:Conneect_Firebase/modules/login/login.dart';
-import 'package:Conneect_Firebase/modules/admin/rejected.dart';
+import 'package:Conneect_Firebase/modules/admin/rejectedPosts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -70,264 +71,129 @@ class _DashState extends State<Dash> {
         ],
         backgroundColor: Color.fromRGBO(238, 120, 120, 1.0),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Padding(
-            padding:
-                const EdgeInsetsDirectional.fromSTEB(16.0, 100.0, 16.0, 16.0),
-            child: Column(
+      body: Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(16.0, 120.0, 16.0, 16.0),
+        child: Column(
+          children: [
+            Row(
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DashBoard()));
-                        },
-                        style: TextButton.styleFrom(
-                          backgroundColor: Color.fromRGBO(238, 126, 126, 1.0),
-                        ),
-                        child: new Column(children: [
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Icon(
-                            Icons.accessibility_new_outlined,
-                            size: 60,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Users : ",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  fontFamily: 'Arial',
-                                ),
-                              ),
-                              FutureBuilder(
-                                  future: countDocuments(),
-                                  builder: (context, snapshot) {
-                                    return Expanded(
-                                      child: Text(
-                                        "$countusers1",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.white,
-                                          fontFamily: 'Arial',
-                                          //fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    );
-                                  })
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                        ]),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    Expanded(
-                        child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PostAdmin()));
-                      },
-                      style: TextButton.styleFrom(
-                        backgroundColor: Color.fromRGBO(206, 175, 175, 1.0),
-                      ),
-                      child: new Column(children: [
-                        SizedBox(
-                          height: 40,
-                        ),
-                        Icon(
-                          Icons.post_add,
-                          size: 60,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Posts : ",
+                defaultHomeAdmin(
+                    color: Color.fromRGBO(238, 126, 126, 1.0),
+                    function: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DashBoard()));
+                    },
+                    icon: Icons.accessibility_new_outlined,
+                    text: 'Users : ',
+                    futureBuilder: FutureBuilder(
+                        future: countDocuments(),
+                        builder: (context, snapshot) {
+                          return Expanded(
+                            child: Text(
+                              "$countusers1",
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 16,
                                 color: Colors.white,
                                 fontFamily: 'Arial',
                                 //fontWeight: FontWeight.bold,
                               ),
                             ),
-                            FutureBuilder(
-                                future: countPosts(),
-                                builder: (context, snapshot) {
-                                  return Expanded(
-                                    child: Text(
-                                      "$countpost",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.white,
-                                        fontFamily: 'Arial',
-                                        //fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  );
-                                })
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                      ]),
-                    )),
-                  ],
-                ),
+                          );
+                        })),
                 SizedBox(
-                  height: 45,
+                  width: 20.0,
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PostApprove()));
-                        },
-                        style: TextButton.styleFrom(
-                          backgroundColor: Color.fromRGBO(228, 178, 216, 1.0),
-                        ),
-                        child: new Column(
-                          children: [
-                            SizedBox(
-                              height: 45,
-                            ),
-                            Icon(
-                              Icons.check_circle,
-                              size: 60,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              height: 35,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Approved : ",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontFamily: 'Arial',
-                                    //fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                FutureBuilder(
-                                    future: countApproved(),
-                                    builder: (context, snapshot) {
-                                      return Expanded(
-                                        child: Text(
-                                          "$countapprove",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.white,
-                                            fontFamily: 'Arial',
-                                            //fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      );
-                                    })
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 25.0,
-                    ),
-                    Expanded(
-                        child: ElevatedButton(
-                         onPressed: () {
-                           Navigator.push(context,MaterialPageRoute(
-                                builder: (context) => PostReject()));
-                      },
-                         style: TextButton.styleFrom(
-                        backgroundColor: Color.fromRGBO(255, 13, 13, 1.0),
-                      ),
-                          child: new Column(
-                            children: [
-                             SizedBox(
-                            height: 45,
-                          ),
-                          Icon(
-                            Icons.pending_actions_outlined,
-                            size: 60,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            height: 35,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Rejected: ",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  fontFamily: 'Arial',
-                                  //fontWeight: FontWeight.bold,
-                                ),
+                defaultHomeAdmin(
+                    color: Color.fromRGBO(206, 175, 175, 1.0),
+                    function: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PostAdmin()));
+                    },
+                    icon: Icons.post_add,
+                    text: 'Posts : ',
+                    futureBuilder: FutureBuilder(
+                        future: countPosts(),
+                        builder: (context, snapshot) {
+                          return Expanded(
+                            child: Text(
+                              "$countpost",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontFamily: 'Arial',
+                                //fontWeight: FontWeight.bold,
                               ),
-                              FutureBuilder(
-                                  future: countPending(),
-                                  builder: (context, snapshot) {
-                                    return Expanded(
-                                      child: Text(
-                                        "$countpending",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.white,
-                                          fontFamily: 'Arial',
-                                          //fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                        ],
-                      ),
-                    )),
-                  ],
-                )
+                            ),
+                          );
+                        })),
               ],
             ),
-          ),
+            SizedBox(
+              height: 45,
+            ),
+            Row(
+              children: [
+                defaultHomeAdmin(
+                  function: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PostApprove()));
+                  },
+                  icon: Icons.check_circle,
+                  text: 'Approved : ',
+                  futureBuilder: FutureBuilder(
+                      future: countApproved(),
+                      builder: (context, snapshot) {
+                        return Expanded(
+                          child: Text(
+                            "$countapprove",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontFamily: 'Arial',
+                              //fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                      }),
+                  color: Color.fromRGBO(228, 178, 216, 1.0),
+                ),
+                SizedBox(
+                  width: 20.0,
+                ),
+                defaultHomeAdmin(
+                    function: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PostReject()));
+                    },
+                    icon: Icons.pending_actions_outlined,
+                    text: 'Rejected : ',
+                    futureBuilder: FutureBuilder(
+                        future: countPending(),
+                        builder: (context, snapshot) {
+                          return Expanded(
+                            child: Text(
+                              "$countpending",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontFamily: 'Arial',
+                                //fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          );
+                        }),
+                    color: Color.fromRGBO(255, 13, 13, 1.0)),
+              ],
+            )
+          ],
         ),
       ),
     );
